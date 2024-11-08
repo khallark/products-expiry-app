@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <template class="temp-1">
+        <div class="row"></div>
+        <button class="bin"><img id="search-img" src="bin.png" alt="delete"></button>
+    </template>
+    <template class="temp-2">
+        <div class="row"></div>
+        <button class="update" onclick="showUpdateTemplate()"><img id="expire-img" src="update.png" alt="delete"></button>
+    </template>
+
+
+    <div id="main-wrapper" class="wrapper">
+        <div class="dashboard">
+            <h1 class="ops-text">Options</h1>
+
+            <div class="ops-button" id="home-bttn" onclick="disCont('home')">Home</div>
+
+            <div class="ops-button" id="search-bttn" onclick="disCont('search')">Search</div>
+
+            <div class="ops-button" id="create-bttn" onclick="disCont('create')">Create entry</div>
+
+            <div class="ops-button" id="expiring-bttn" onclick="disCont('expiring')">List of Items expiring after 6 months or less</div>
+
+            <div class="ops-button" id="expired-bttn" onclick="disCont('expired')" style="border-bottom: 1px solid rgb(212, 212, 212);">List of Items already expired</div>
+        </div>
+
+
+        <!-- <div class="background-gradient"></div> -->
+
+
+        <div class="tab-content home-ct" id="home-content">
+            <h1 style="
+                font-size: 6rem;
+                color: rgb(94, 94, 94);
+            "
+            >Welcome!</h1>
+            <h2 style="
+                font-size: 2rem;
+                font-weight: 200;
+                text-align: center;
+            ">Check for any updates regarding the expiry details.</h2>
+            <h2 style="
+                font-size: 2rem;
+                font-weight: 200;
+                text-align: center;
+            ">Hope you have a wonderful day!</h2>
+        </div>
+
+
+
+
+        <div class="tab-content" id="search-content">
+            <div style="
+                display: flex;
+                position: relative;
+                height: 100px;
+                min-height: 100px;
+                width: 90%;
+                margin-bottom: 30px;
+                border: none;
+            ">
+                <input type="text" id="search-input" class="search-input" placeholder="Search for the medicine name...">
+            </div>
+        </div>
+
+
+
+
+        <div class="tab-content" id="create-content">
+            <div class="name">
+                <h6 style="padding-left: 5px; font-weight: 300;">Enter Product Name</h6>
+                <input id="inp-1" class="name-input" type="text" placeholder="Enter here....">
+            </div>
+            <div class="name">
+                <h6 style="padding-left: 5px; font-weight: 300;">Enter Batch Number</h6>
+                <input id="inp-2" class="name-input" type="text" placeholder="Enter here....">
+            </div>
+            <div class="name">
+                <h6 style="padding-left: 5px; font-weight: 300;">Enter Manufacturer Name</h6>
+                <input id="inp-3" class="name-input" type="text" placeholder="Enter here....">
+            </div>
+            <div class="name">
+                <h6 style="padding-left: 5px; font-weight: 300;">Enter Bill Number</h6>
+                <input id="inp-4" class="name-input" type="text" placeholder="Enter here....">
+            </div>
+            <div class="name">
+                <h6 style="padding-left: 5px; font-weight: 300;">Enter Expiry date</h6>
+                <input id="inp-5" class="name-input" type="text" placeholder="Enter in format YYYY-MM-DD">
+            </div>
+            <button id="create-submit" class="submit" onclick="addRow()">Submit</button>
+        </div>
+
+
+
+
+        <div class="tab-content" id="expiring-content">
+            <div class="expire-slot" style="
+                height: 80px;
+                min-height: 80px;
+                justify-content: space-between;
+                align-items: center;
+                border: none;
+            ">
+                <h1 style="font-size: 3rem; font-weight: 200;" id="expiring-num">Items(0)</h1>
+                <button class="reset" id="expiring-reset" onclick="reset('expiring')">
+                    <img id="reset-bttn" src="reset.png" alt="reset">
+                </button>
+            </div>     
+        </div>
+
+
+
+
+        <div class="tab-content" id="expired-content">
+            <div class="expire-slot" style="
+                height: 80px;
+                min-height: 80px;
+                justify-content: space-between;
+                align-items: center;
+                border: none;
+            ">
+                <h1 style="font-size: 3rem; font-weight: 200;" id="expired-num">Items(0)</h1>
+                <button class="reset" id="expired-reset" onclick="reset('expired')">
+                    <img id="reset-bttn" src="reset.png" alt="reset">
+                </button>
+            </div>
+        </div>
+
+
+
+    </div>
+    <div id="-update-wrapper" class="no-show">
+        <div class="update-card">
+            <div class="name">
+                <h6 style="padding-left: 5px; font-weight: 300;">Enter Product Name</h6>
+                <input id="inp-6" class="name-input" type="text" placeholder="Enter here....">
+            </div>
+            <div class="name">
+                <h6 style="padding-left: 5px; font-weight: 300;">Enter Batch Number</h6>
+                <input id="inp-7" class="name-input" type="text" placeholder="Enter here....">
+            </div>
+            <div class="name">
+                <h6 style="padding-left: 5px; font-weight: 300;">Enter Manufacturer Name</h6>
+                <input id="inp-8" class="name-input" type="text" placeholder="Enter here....">
+            </div>
+            <div class="name">
+                <h6 style="padding-left: 5px; font-weight: 300;">Enter Bill Number</h6>
+                <input id="inp-9" class="name-input" type="text" placeholder="Enter here....">
+            </div>
+            <div class="name">
+                <h6 style="padding-left: 5px; font-weight: 300;">Enter Expiry date</h6>
+                <input id="inp-10" class="name-input" type="text" placeholder="Enter in format DD/MM/YYYY">
+            </div>
+            <div style="display: flex; flex-direction: row; gap: 20px;">
+                <button id="update-submit" class="submit" onclick="updateRow()">Update</button>
+                <button id="update-submit" class="submit" onclick="removeUpdateTemplate()">Cancel</button>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    let arr = ["home", "search", "create", "expiring", "expired"];
+    function disCont(cont_name) {
+        let cont = document.getElementById(cont_name + "-content");
+        cont.classList.add(cont_name + "-ct")
+        let bttn = document.getElementById(cont_name + "-bttn");
+        bttn.classList.add("ops-button");
+        bttn.classList.add("ops-button-active");
+        for(let i = 0; i < arr.length; i++) {
+            if(arr[i] != cont_name) {
+                let c = document.getElementById(arr[i] + "-content");
+                c.classList.remove(arr[i] + '-ct');
+                let b = document.getElementById(arr[i] + "-bttn");
+                b.classList.remove("ops-button-active");
+                b.classList.add("ops-button");
+            }
+        }
+    }
+
+    function showUpdateTemplate() {
+        let update = document.getElementById("-update-wrapper");
+        let main = document.getElementById("main-wrapper");
+        main.classList.add("wrapper-blur");
+        update.classList.add("update-wrapper");
+    }
+
+    function removeUpdateTemplate() {
+        let update = document.getElementById("-update-wrapper");
+        let main = document.getElementById("main-wrapper");
+        main.classList.remove("wrapper-blur");
+        update.classList.remove("update-wrapper");
+    }
+</script>
+<script src="config.js"></script>
+</html>
