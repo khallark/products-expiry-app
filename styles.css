@@ -58,6 +58,13 @@ table {
     border: 1px solid black;
 }
 
+.table-div {
+    overflow-y: auto;
+    border-top: 1px solid black;
+    width: 95%;
+    background-color: rgba(255, 255, 255, 0.384);
+}
+
 .bin {
     position: relative;
     outline: none;
