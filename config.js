@@ -236,7 +236,7 @@ function normalizeSpaces(str) {
 async function addbts(cell) {
     cell.id = "u-d";
     let update = document.createElement("button");
-    update.id = "u-d-button";
+    update.classList.add("u-d-button");
     update.innerText = "U";
     update.style.backgroundColor = "Green";
     update.addEventListener("click", function() {
@@ -244,7 +244,7 @@ async function addbts(cell) {
         fillGlobalArrayWithInitVals(cell)
     })
     let del = document.createElement("button");
-    del.id = "u-d-button";
+    del.classList.add("u-d-button");
     del.innerText = "D";
     del.style.backgroundColor = "rgb(209, 0, 0)";
     del.addEventListener("click", function() {

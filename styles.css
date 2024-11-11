@@ -48,14 +48,18 @@ table {
     padding: 0;
 }
 
-#u-d-button {
+.u-d-button {
     position: relative;
     height: fit-content;
     width: 100%;
     height: 40px;
     font-size: 1.5rem;
     font-weight: 900;
+    color: white;
     border: 1px solid black;
+}
+.u-d-button:hover{
+    filter: brightness(0.85);
 }
 
 .table-div {
