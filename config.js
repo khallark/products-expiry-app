@@ -185,7 +185,7 @@ async function __fetch_searched_products(string) {
 async function __fetch_hard_searched_products(string) {
     try {
         string = formattedSearch(string)
-        const response = await fetch(`https://products-expiry-app-24bbeea498a1.herokuapp.com/searchStringHard/${string}`);
+        const response = await fetch(`https://products-expiry-app-24bbeea498a1.herokuapp.com/searchStringHard/${encodeURIComponent(string)}`);
         
         if (!response.ok) {
             throw new Error(`Failed to fetch expiring products: ${response.statusText}`);
