@@ -20,11 +20,19 @@ table, th, td {
     border: 1px solid rgb(0, 0, 0);
     border-collapse: collapse;
 }
+thead, th {
+    position: static;
+    top: 0;
+    z-index: 1;
+    font-size: 1.1rem;
+    padding: 10px;
+    border: 2px solid black;
+    border-bottom: 3px solid black;
+}
 td {
     padding: 10px;
-    font-size: 16px;
+    font-size: 1.1rem;
     color: rgb(0, 0, 0);
-    text-shadow: 1px 1px 0px rgb(235, 235, 235);
     vertical-align: top;
     text-align: left;
 }
@@ -34,6 +42,22 @@ table {
     table-layout: fixed;
 }
 
+#u-d {
+    /* display: flex; */
+    /* flex-direction: row; */
+    width: 45px;
+    font-size: 1rem;
+    padding: 0;
+}
+
+#u-d-button {
+    position: relative;
+    height: fit-content;
+    width: 100%;
+    /* height: 100px; */
+
+    font-size: 1rem;
+}
 /* .row {
     display: flex;
     flex-direction: row;
@@ -112,8 +136,8 @@ table {
     display: flex;
     flex-direction: column;
     height: 100%;
-    width: 370px;
-    min-width: 370px;
+    width: 310px;
+    min-width: 310px;
     border-top-right-radius: 15px;
     border-bottom-right-radius: 15px;
     box-shadow: 0 0 20px 5px rgb(107, 107, 107);
@@ -161,7 +185,7 @@ input[type="radio"] {
     display: none;
     height: auto;
     max-height: 100%;
-    width: calc(100% - 370px);
+    width: calc(100% - 310px);
     min-width: 500px;
     animation: pop-up 0.4s ease-in 0s 1 normal;
     background: none;
@@ -224,23 +248,29 @@ input[type="radio"] {
 }
 
 .create-ct {
+    /* margin-top: 20px; */
     position: relative;
     display: flex;
     flex-direction: column;
     gap: 5px;
     height: 100vh;
+    max-height: 100vh;
+    overflow: auto;
+    /* height: fit-content; */
     align-items: center;
-    justify-content:center;
+    /* justify-content:center; */
     /* background-color: aqua; */
     /* padding-top: 120px; */
 }
 .name {
+    margin: 1px;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    /* background-color: aquamarine; */
     height: 100px;
-    font-size: 1.5rem;
+    font-size: 1.6rem;
+    font-weight: 900;
+    overflow: visible;
 }
 #create-submit {
     font-size: 1.5rem;
@@ -259,10 +289,12 @@ input[type="radio"] {
     background-color: rgb(238, 238, 238);
 }
 .submit {
+    overflow: visible;
     height: 50px;
+    min-height: 50px;
     width: 130px;
     border-radius: 13px;
-    margin-top: 30px;
+    margin-top: 10px;
     border: none;
     outline: none;
     font-size: larger;
@@ -284,8 +316,7 @@ input[type="radio"] {
     position: relative;
     overflow-y: auto;
     padding-top: 40px;
-    height: fit-content;
-    min-height: 100%;
+    max-height: 100vh;
     row-gap: 20px;
 }
 .expired-ct {
@@ -333,7 +364,7 @@ input[type="radio"] {
     filter: blur(10px);
     transition: 0.1s linear;
 }
-.no-show {
+#no-show {
     display: none;
 }
 .update-wrapper {
@@ -344,15 +375,17 @@ input[type="radio"] {
     justify-content: center;
     height: 100vh;
     width: 100vw;
+    background: none;
 }
 .update-card {
-    scale: 0.8;
+    scale: 0.7;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 650px;
+    height: 900px;
     width: 550px;
+    min-width: 550px;
     border-radius: 20px;
     background-color: white;
 }

@@ -1,4 +1,44 @@
 let InitVals = []
+let cat_map_num = {
+    "none": 0,
+    "Tablet": 1,
+    "Capsule": 2,
+    "Injection": 3,
+    "Tube": 4,
+    "Gel": 5,
+    "Powder": 6,
+    "Syrup": 7,
+    "Cream": 8,
+    "Drops": 9,
+    "Ointment": 10,
+    "Lotion": 11,
+    "Nano": 12,
+    "Shot": 13,
+    "Respules": 14,
+    "Spray": 15,
+    "Inhaler": 16,
+    "Others": 17
+}
+let cat_map_str = {
+    0: "none",
+    1: "Tablet",
+    2: "Capsule",
+    3: "Injection",
+    4: "Tube",
+    5: "Gel",
+    6: "Powder",
+    7: "Syrup",
+    8: "Cream",
+    9: "Drops",
+    10: "Ointment",
+    11: "Lotion",
+    12: "Nano",
+    13: "Shot",
+    14: "Respules",
+    15: "Spray",
+    16: "Inhaler",
+    17: "Others"
+}
 
 // Function to fetch expiring products and return the JSON data
 async function __fetchExpiringProducts() {
@@ -36,11 +76,14 @@ async function __fetchExpiredProducts() {
     }
 }
 
-async function __deleteTuple(product_n, batch_no, manufacturer_n, bill_no, exp_date) {
+async function __deleteTuple(category, product_n, batch_no, qty, price, manufacturer_n, bill_no, exp_date) {
     const baseUrl = 'https://products-expiry-app-24bbeea498a1.herokuapp.com/delete';
     const params = new URLSearchParams({
+        category: category,
         product_name: product_n,
         batch_number: batch_no,
+        qty: qty,
+        price: price,
         manufacturer_name: manufacturer_n,
         bill_number: bill_no,
         expiry_date: exp_date
@@ -66,12 +109,15 @@ async function __deleteTuple(product_n, batch_no, manufacturer_n, bill_no, exp_d
 
 async function __addTuple(productDetails) {
     // Destructure the array into individual variables
-    const [product_n, batch_no, manufacturer_n, bill_no, exp_date] = productDetails;
+    const [cat, product_n, batch_no, qty, price, manufacturer_n, bill_no, exp_date] = productDetails;
 
     const baseUrl = 'https://products-expiry-app-24bbeea498a1.herokuapp.com/addproduct';
     const bodyData = {
+        category: cat,
         product_name: product_n,
         batch_number: batch_no,
+        qty: qty,
+        price: price,
         manufacturer_name: manufacturer_n,
         bill_number: bill_no,
         expiry_date: exp_date
@@ -80,22 +126,18 @@ async function __addTuple(productDetails) {
     try {
         const response = await fetch(baseUrl, {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(bodyData)  // Send the data as JSON
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(bodyData)
         });
         
         if (!response.ok) {
             throw new Error(`Failed to add product: ${response.statusText}`);
         }
-
-        // Optionally handle the response data here if needed
-        const data = await response.text(); // If the server sends a message
+        const data = await response.text(); 
         console.log('Product added successfully:', data);
-
     } catch (error) {
         console.error('Error adding product:', error);
+        throw error; // Propagate the error up to handle in addRow
     }
 }
 
@@ -140,43 +182,12 @@ async function __fetch_hard_searched_products(string) {
     }
 }
 
-
-
-
-
-
-
-function createRow(productArr, mode) {
-    const div = document.createElement('div');
-    if(mode === 'expire') div.className = 'expire-slot';
-    else div.className = 'search-slot';
-    
-    const date = new Date(productArr[4]);
-    const options = { day: 'numeric', month: 'long', year: 'numeric' };
-    productArr[4] = date.toLocaleDateString('en-US', options);
-
-    div.innerHTML = `
-        <table id="-table">
-            <tr style="font-weight: bold;">
-                <td>${productArr[0]}</td>
-                <td>${productArr[1]}</td>
-                <td>${productArr[2]}</td>
-                <td>${productArr[3]}</td>
-                <td>${productArr[4]}</td>
-            </tr>
-        </table>
-        <button class="bin" onclick="delete_row(this)"><img id="search-img" src="bin.png" alt="delete"></button>
-        <button class="update" onclick="showUpdateTemplate(); fillGlobalArrayWithInitVals(this);"><img id="expire-img" src="update.png"
-        alt="update"></button>
-    `;
-    return div;  
-}
-function deleteChildrenExceptFirst(parentDiv) {
+function deleteAllChildren(parentDiv) {
     const children = parentDiv.children; // Get all children of the parent div
     const numberOfChildren = children.length;
 
     // Loop through the children starting from the last child
-    for (let i = numberOfChildren - 1; i > 0; i--) {
+    for (let i = numberOfChildren - 1; i >= 0; i--) {
         parentDiv.removeChild(children[i]); // Remove child element
     }
 }
@@ -204,40 +215,126 @@ function normalizeSpaces(str) {
 
 
 
-
+async function addbts(cell) {
+    cell.id = "u-d";
+    let update = document.createElement("button");
+    update.id = "u-d-button";
+    update.innerText = "U";
+    update.addEventListener("click", function() {
+        showUpdateTemplate();
+        fillGlobalArrayWithInitVals(cell)
+    })
+    let del = document.createElement("button");
+    del.id = "u-d-button";
+    del.innerText = "D";
+    del.addEventListener("click", function() {
+        delete_row(cell);
+    })
+    cell.appendChild(update)
+    cell.appendChild(del)
+}
 
 
 async function addExpiring() {
     const products = await __fetchExpiringProducts();
-    console.log(products.length);
-    const expiring_sec = document.getElementById('expiring-content');
-    deleteChildrenExceptFirst(expiring_sec);
+    const expiring_sec = document.getElementById('expiring-content-table');
+    deleteAllChildren(expiring_sec);
     document.getElementById('expiring-num').textContent = `Items (${products.length})`;
     for (let i = 0; i < products.length; i++) {
         const productArray = Object.values(products[i]);
-        const row = createRow(productArray, 'expire');  // Create the row directly
-        expiring_sec.appendChild(row);  // Append the row to the container
+        let newRow = expiring_sec.insertRow();
+        let cell = newRow.insertCell(0);
+        await addbts(cell)
+        for(let i = 1; i < 8; i++) {
+            let cell = newRow.insertCell(i);
+            if(i == 4 || i == 5 || i == 6) cell.innerHTML = `${productArray[i - 1] === "NULL" || productArray[i - 1] === 0 || productArray[i - 1] === "0.00" ? "----" : productArray[i - 1]}`;
+            else if(i == 1) cell.innerHTML = `${cat_map_str[productArray[i - 1]]}`;
+            else cell.innerHTML = `${productArray[i - 1]}`;
+        }
+        const date = new Date(productArray[7]);
+        const options = { day: 'numeric', month: 'long', year: 'numeric' };
+        productArray[7] = date.toLocaleDateString('en-US', options);
+        cell = newRow.insertCell(8);
+        cell.innerHTML = `${productArray[7]}`;
     }
 }
 
 
 async function addExpired() {
     const products = await __fetchExpiredProducts();
-    const expired_sec = document.getElementById('expired-content');
-    deleteChildrenExceptFirst(expired_sec);
+    const expired_sec = document.getElementById('expired-content-table');
+    deleteAllChildren(expired_sec);
     document.getElementById('expired-num').textContent = `Items (${products.length})`;
     for (let i = 0; i < products.length; i++) {
         const productArray = Object.values(products[i]);
-        const row = createRow(productArray, 'expire');  // Create the row directly
-        expired_sec.appendChild(row);  // Append the row to the container
+        let newRow = expired_sec.insertRow();
+        let cell = newRow.insertCell(0);
+        await addbts(cell)
+        for(let i = 1; i < 8; i++) {
+            let cell = newRow.insertCell(i);
+            if(i == 4 || i == 5 || i == 6) cell.innerHTML = `${productArray[i - 1] === "NULL" || productArray[i - 1] === 0 || productArray[i - 1] === "0.00" ? "----" : productArray[i - 1]}`;
+            else if(i == 1) cell.innerHTML = `${cat_map_str[productArray[i - 1]]}`;
+            else cell.innerHTML = `${productArray[i - 1]}`;
+        }
+        const date = new Date(productArray[7]);
+        const options = { day: 'numeric', month: 'long', year: 'numeric' };
+        productArray[7] = date.toLocaleDateString('en-US', options);
+        cell = newRow.insertCell(8);
+        cell.innerHTML = `${productArray[7]}`;
     }
 }
 
+async function searchString(event) {
+    const string = event.target.value;
+    const products = await __fetch_searched_products(string);
+    const search_sec = document.getElementById('search-content-table');
+    deleteAllChildren(search_sec);
+    for (let i = 0; i < products.length; i++) {
+        const productArray = Object.values(products[i]);
+        let newRow = search_sec.insertRow();
+        let cell = newRow.insertCell(0);
+        await addbts(cell)
+        for(let i = 1; i < 8; i++) {
+            let cell = newRow.insertCell(i);
+            if(i == 4 || i == 5 || i == 6) cell.innerHTML = `${productArray[i - 1] === "NULL" || productArray[i - 1] === 0 || productArray[i - 1] === "0.00" ? "----" : productArray[i - 1]}`;
+            else if(i == 1) cell.innerHTML = `${cat_map_str[productArray[i - 1]]}`;
+            else cell.innerHTML = `${productArray[i - 1]}`;
+        }
+        const date = new Date(productArray[7]);
+        const options = { day: 'numeric', month: 'long', year: 'numeric' };
+        productArray[7] = date.toLocaleDateString('en-US', options);
+        cell = newRow.insertCell(8);
+        cell.innerHTML = `${productArray[7]}`;
+    }
+}
+
+async function updateSearch() {
+    const string = document.getElementById('search-input').value;
+    const products = await __fetch_searched_products(string);
+    const search_sec = document.getElementById('search-content-table');
+    deleteAllChildren(search_sec);
+    for (let i = 0; i < products.length; i++) {
+        const productArray = Object.values(products[i]);
+        let newRow = search_sec.insertRow();
+        let cell = newRow.insertCell(0);
+        await addbts(cell)
+        for(let i = 1; i < 8; i++) {
+            let cell = newRow.insertCell(i);
+            if(i == 4 || i == 5 || i == 6) cell.innerHTML = `${productArray[i - 1] === "NULL" || productArray[i - 1] === 0 || productArray[i - 1] === "0.00" ? "----" : productArray[i - 1]}`;
+            else if(i == 1) cell.innerHTML = `${cat_map_str[productArray[i - 1]]}`;
+            else cell.innerHTML = `${productArray[i - 1]}`;
+        }
+        const date = new Date(productArray[7]);
+        const options = { day: 'numeric', month: 'long', year: 'numeric' };
+        productArray[7] = date.toLocaleDateString('en-US', options);
+        cell = newRow.insertCell(8);
+        cell.innerHTML = `${productArray[7]}`;
+    }
+}
 
 async function delete_row(button) {
-    const row = button.parentNode.children[0].children[0].children[0];
-    await __deleteTuple(row.children[0].textContent, row.children[1].textContent, row.children[2].textContent,
-    row.children[3].textContent, convertDateFormat(row.children[4].textContent));
+    const row = button.parentNode.children;
+    await __deleteTuple(cat_map_num[row[1].textContent], row[2].textContent, row[3].textContent, row[4].textContent === "----" ? '0' : row[4].textContent, row[5].textContent === "----" ? '0.00' : row[5].textContent, row[6].textContent === "----" ? 'NULL' : row[6].textContent, row[7].textContent, convertDateFormat(row[8].textContent));
     await addExpired();
     await addExpiring();
     await updateSearch();
@@ -258,33 +355,45 @@ function isValidDateFormat(dateString) {
 
 async function addRow() {
     const vals = [
+        cat_map_num[document.getElementById('create-cat').value],
         normalizeSpaces(document.getElementById('inp-1').value),
         normalizeSpaces(document.getElementById('inp-2').value),
-        normalizeSpaces(document.getElementById('inp-3').value),
-        normalizeSpaces(document.getElementById('inp-4').value),
-        normalizeSpaces(document.getElementById('inp-5').value)
+        normalizeSpaces(document.getElementById('inp-3').value) || null,
+        normalizeSpaces(document.getElementById('inp-4').value) || null,
+        normalizeSpaces(document.getElementById('inp-5').value) || null,
+        normalizeSpaces(document.getElementById('inp-6').value),
+        normalizeSpaces(document.getElementById('inp-7').value)
     ];
-    for(let i = 0; i < vals.length; i++) {
-        if(!vals[i]) {
-            console.log('string empty error')
-            return;
-        }
+    
+    if(vals[0] == 0) {
+        return;
     }
-    if(!isValidDateFormat(vals[4])) {
+    if(!isValidDateFormat(vals[7])) {
         console.log('invalid date format error')
         return;
     }
+    
     const product = await __fetch_hard_searched_products(vals[1]);
+    
     if(product.length > 0) {
-        console.log('batch_no error')
+        
+        console.log('product name should be unique')
         return;
     }
-    __addTuple(vals);
+    try {
+        await __addTuple(vals);
+    } catch (error) {
+        console.error("Error in adding row:", error);
+        return;
+    }
+    document.getElementById('create-cat').value = 'none';
     document.getElementById('inp-1').value =
     document.getElementById('inp-2').value =
     document.getElementById('inp-3').value =
     document.getElementById('inp-4').value =
-    document.getElementById('inp-5').value = '';
+    document.getElementById('inp-5').value =
+    document.getElementById('inp-6').value =
+    document.getElementById('inp-7').value = '';
     await addExpired();
     await addExpiring();
     await updateSearch();
@@ -293,86 +402,67 @@ async function addRow() {
 
 
 async function fillGlobalArrayWithInitVals(button) {
-    const row = button.parentNode.children[0].children[0].children[0];
-    InitVals = [row.children[0].textContent, row.children[1].textContent, row.children[2].textContent,
-    row.children[3].textContent, convertDateFormat(row.children[4].textContent)];
-    document.getElementById('inp-6').value = `${InitVals[0]}`;
-    document.getElementById('inp-7').value = `${InitVals[1]}`;
-    document.getElementById('inp-8').value = `${InitVals[2]}`;
-    document.getElementById('inp-9').value = `${InitVals[3]}`;
-    document.getElementById('inp-10').value = `${InitVals[4]}`;
+    const row = button.parentNode.children;
+    InitVals = [row[1].textContent, row[2].textContent, row[3].textContent,
+    row[4].textContent, row[5].textContent, row[6].textContent, row[7].textContent, convertDateFormat(row[8].textContent)];
+    document.getElementById('update-cat').value = `${InitVals[0]}`;
+    document.getElementById('inp-8').value = `${InitVals[1]}`;
+    document.getElementById('inp-9').value = `${InitVals[2]}`;
+    document.getElementById('inp-10').value = `${InitVals[3] === "----" ? '' : InitVals[3]}`;
+    document.getElementById('inp-11').value = `${InitVals[4] === "----" ? '' : InitVals[4]}`;
+    document.getElementById('inp-12').value = `${InitVals[5] === "----" ? '' : InitVals[5]}`;
+    document.getElementById('inp-13').value = `${InitVals[6]}`;
+    document.getElementById('inp-14').value = `${InitVals[7]}`;
 }
+
 async function emptyUpdateInputs() {
     InitVals.length = 0;
-    document.getElementById('inp-6').value =
-    document.getElementById('inp-7').value =
+    document.getElementById('update-cat').value = 'none';
     document.getElementById('inp-8').value =
     document.getElementById('inp-9').value =
-    document.getElementById('inp-10').value = '';
+    document.getElementById('inp-10').value =
+    document.getElementById('inp-11').value =
+    document.getElementById('inp-12').value =
+    document.getElementById('inp-13').value =
+    document.getElementById('inp-14').value = '';
 }
 
 
 async function updateRow() {
     const vals = [
-        normalizeSpaces(document.getElementById('inp-6').value),
-        normalizeSpaces(document.getElementById('inp-7').value),
+        cat_map_num[document.getElementById('update-cat').value],
         normalizeSpaces(document.getElementById('inp-8').value),
         normalizeSpaces(document.getElementById('inp-9').value),
-        normalizeSpaces(document.getElementById('inp-10').value)
+        normalizeSpaces(document.getElementById('inp-10').value) || null,
+        normalizeSpaces(document.getElementById('inp-11').value) || null,
+        normalizeSpaces(document.getElementById('inp-12').value) || null,
+        normalizeSpaces(document.getElementById('inp-13').value),
+        normalizeSpaces(document.getElementById('inp-14').value)
     ];
-    for(let i = 0; i < vals.length; i++) {
-        if(!vals[i]) {
-            console.log('string empty error');
-            return;
-        }
+    if(vals[0] == 0) {
+        return;
     }
-    if(!isValidDateFormat(vals[4])) {
-        console.log('invalid date format error');
+    if(!isValidDateFormat(vals[7])) {
+        console.log('invalid date format error')
         return;
     }
 
-    const products = await __fetch_hard_searched_products(vals[1])
-    if(vals[1] != InitVals[1] && products.length > 0) {
-        console.log('batch_no error');
-        return;
-    }
-    await __deleteTuple(InitVals[0], InitVals[1], InitVals[2], InitVals[3], InitVals[4]);
+
+    await __deleteTuple(cat_map_num[InitVals[0]], InitVals[1], InitVals[2], InitVals[3] === '----' ? '0' : InitVals[3],
+    InitVals[4] === '----' ? '0.00' : InitVals[4], InitVals[5] === '----' ? 'NULL' : InitVals[5], InitVals[6], convertDateFormat(InitVals[7]));
     await __addTuple(vals);
-    await emptyUpdateInputs();
     await addExpired();
     await addExpiring();
     await updateSearch();
-    let update = document.getElementById("-update-wrapper");
+    let update = document.getElementById("show");
     let main = document.getElementById("main-wrapper");
     main.classList.remove("wrapper-blur");
-    update.classList.remove("update-wrapper");
+    update.id = "no-show";
+    await emptyUpdateInputs();
 }
 
 
-async function searchString(event) {
-    const string = event.target.value;
-    const products = await __fetch_searched_products(string);
-    const search_sec = document.getElementById('search-content');
-    deleteChildrenExceptFirst(search_sec);
-    for (let i = 0; i < products.length; i++) {
-        const productArray = Object.values(products[i]);
-        const row = createRow(productArray, 'search');  // Create the row directly
-        search_sec.appendChild(row);  // Append the row to the container
-    }
-}
 
-
-async function updateSearch() {
-    const string = document.getElementById('search-input').value;
-    const products = await __fetch_searched_products(string);
-    const search_sec = document.getElementById('search-content');
-    deleteChildrenExceptFirst(search_sec);
-    for (let i = 0; i < products.length; i++) {
-        const productArray = Object.values(products[i]);
-        const row = createRow(productArray, 'search');  // Create the row directly
-        search_sec.appendChild(row);  // Append the row to the container
-    }
-}
 
 
 

@@ -6,21 +6,11 @@
     <title>Surindera Health Care</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,100;0,200;0,600;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,600;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <link rel="icon" href="favpng_cartoon-blue-capsule.png" type="image/x-icon">
 </head>
 <body>
-    <template class="temp-1">
-        <div class="row"></div>
-        <button class="bin"><img id="search-img" src="bin.png" alt="delete"></button>
-    </template>
-    <template class="temp-2">
-        <div class="row"></div>
-        <button class="update" onclick="showUpdateTemplate()"><img id="expire-img" src="update.png" alt="delete"></button>
-    </template>
-
-
     <div id="main-wrapper" class="wrapper">
         <div class="dashboard">
             <h1 class="ops-text">Options</h1>
@@ -36,8 +26,6 @@
             <div class="ops-button" id="expired-bttn" onclick="disCont('expired')" style="border-bottom: 1px solid rgb(212, 212, 212);">List of Items already expired</div>
         </div>
 
-
-        <!-- <div class="background-gradient"></div> -->
 
 
         <div class="tab-content home-ct" id="home-content">
@@ -71,7 +59,27 @@
                 margin-bottom: 30px;
                 border: none;
             ">
-                <input type="text" id="search-input" class="search-input" placeholder="Search for the medicine name...">
+                <input type="text" id="search-input" class="search-input" placeholder="Search for the product name...">
+            </div>
+            <div style="overflow-y: auto;border-top: 1px solid black; width: 95%; background-color: rgba(0, 0, 0, 0.089);">
+                <table style="font-size: 1rem;">
+                    <thead>
+                        <tr">
+                            <th id="u-d">U/D</th>
+                            <th>Category</th>
+                            <th>Product Name</th>
+                            <th>Batch Number</th>
+                            <th>Quantity</th>
+                            <th>Price</th>
+                            <th>Manufacturer</th>
+                            <th>Bill Number</th>
+                            <th>Expiry Date</th>
+                        </tr>
+                    </thead>
+                    <tbody id="search-content-table">
+
+                    </tbody>
+                </table>
             </div>
         </div>
 
@@ -79,27 +87,58 @@
 
 
         <div class="tab-content" id="create-content">
+            <div class="name" style="margin-top: 20px;">
+                <h6 style="overflow: visible; padding-left: 5px; font-weight: 600;">Choose Category *</h6>
+                <select name="options" id="create-cat" class="name-input">
+                    <option value="none">None</option>
+                    <option value="Tablet">Tablet</option>
+                    <option value="Capsule">Capsule</option>
+                    <option value="Injection">Injection</option>
+                    <option value="Tube">Tube</option>
+                    <option value="Gel">Gel</option>
+                    <option value="Powder">Powder</option>
+                    <option value="Syrup">Syrup</option>
+                    <option value="Cream">Cream</option>
+                    <option value="Drops">Drops</option>
+                    <option value="Ointment">Ointment</option>
+                    <option value="Lotion">Lotion</option>
+                    <option value="Nano">Nano</option>
+                    <option value="Shot">Shot</option>
+                    <option value="Respules">Respules</option>
+                    <option value="Spray">Spray</option>
+                    <option value="Inhaler">Inhaler</option>
+                    <option value="Others">Others</option>
+                </select>
+            </div>
             <div class="name">
-                <h6 style="padding-left: 5px; font-weight: 300;">Enter Product Name</h6>
+                <h6 style="overflow: visible; padding-left: 5px; font-weight: 600; margin-top: 10px">Enter Product Name *</h6>
                 <input id="inp-1" class="name-input" type="text" placeholder="Enter here....">
             </div>
             <div class="name">
-                <h6 style="padding-left: 5px; font-weight: 300;">Enter Batch Number</h6>
+                <h6 style="overflow: visible; padding-left: 5px; font-weight: 600; margin-top: 10px">Enter Batch Number *</h6>
                 <input id="inp-2" class="name-input" type="text" placeholder="Enter here....">
             </div>
             <div class="name">
-                <h6 style="padding-left: 5px; font-weight: 300;">Enter Manufacturer Name</h6>
+                <h6 style="overflow: visible; padding-left: 5px; font-weight: 600; margin-top: 10px">Enter Quantity</h6>
                 <input id="inp-3" class="name-input" type="text" placeholder="Enter here....">
             </div>
             <div class="name">
-                <h6 style="padding-left: 5px; font-weight: 300;">Enter Bill Number</h6>
+                <h6 style="overflow: visible; padding-left: 5px; font-weight: 600; margin-top: 10px">Enter Price</h6>
                 <input id="inp-4" class="name-input" type="text" placeholder="Enter here....">
             </div>
             <div class="name">
-                <h6 style="padding-left: 5px; font-weight: 300;">Enter Expiry date</h6>
-                <input id="inp-5" class="name-input" type="text" placeholder="Enter in format YYYY-MM-DD">
+                <h6 style="overflow: visible; padding-left: 5px; font-weight: 600; margin-top: 10px">Enter Manufacturer Name</h6>
+                <input id="inp-5" class="name-input" type="text" placeholder="Enter here....">
             </div>
-            <button id="create-submit" class="submit" onclick="addRow()">Submit</button>
+            <div class="name">
+                <h6 style="overflow: visible; padding-left: 5px; font-weight: 600; margin-top: 10px">Enter Bill Number *</h6>
+                <input id="inp-6" class="name-input" type="text" placeholder="Enter here....">
+            </div>
+            <div class="name">
+                <h6 style="overflow: visible; padding-left: 5px; font-weight: 600; margin-top: 10px">Enter Expiry date *</h6>
+                <input id="inp-7" class="name-input" type="text" placeholder="Enter in format YYYY-MM-DD">
+            </div>
+            <button id="create-submit" class="submit" style="margin-bottom: 20px;" onclick="addRow()">Submit</button>
         </div>
 
 
@@ -117,7 +156,27 @@
                 <button class="reset" id="expiring-reset" onclick="reset('expiring')">
                     <img id="reset-bttn" src="reset.png" alt="reset">
                 </button>
-            </div>     
+            </div>
+            <div style="overflow-y: auto;border-top: 1px solid black; width: 95%; background-color: rgba(0, 0, 0, 0.089);">
+                <table>
+                    <thead>
+                        <tr">
+                            <th id="u-d">U/D</th>
+                            <th>Category</th>
+                            <th>Product Name</th>
+                            <th>Batch Number</th>
+                            <th>Quantity</th>
+                            <th>Price</th>
+                            <th>Manufacturer</th>
+                            <th>Bill Number</th>
+                            <th>Expiry Date</th>
+                        </tr>
+                    </thead>
+                    <tbody id="expiring-content-table">
+
+                    </tbody>
+                </table>
+            </div>
         </div>
 
 
@@ -136,38 +195,86 @@
                     <img id="reset-bttn" src="reset.png" alt="reset">
                 </button>
             </div>
+            <div style="overflow-y: auto;border-top: 1px solid black; width: 95%; background-color: rgba(0, 0, 0, 0.089);">
+                <table>
+                    <thead>
+                        <tr>
+                            <th id="u-d">U/D</th>
+                            <th>Category</th>
+                            <th>Product Name</th>
+                            <th>Batch Number</th>
+                            <th>Quantity</th>
+                            <th>Price</th>
+                            <th>Manufacturer</th>
+                            <th>Bill Number</th>
+                            <th>Expiry Date</th>
+                        </tr>
+                    </thead>
+                    <tbody id="expired-content-table">
+
+                    </tbody>
+                </table>
+            </div>
         </div>
-
-
-
     </div>
-    <div id="-update-wrapper" class="no-show">
-        <div class="update-card">
-            <div class="name">
-                <h6 style="padding-left: 5px; font-weight: 300;">Enter Product Name</h6>
-                <input id="inp-6" class="name-input" type="text" placeholder="Enter here....">
+    <div id="no-show" class="update-wrapper" >
+            <div class="update-card">
+                <div class="name">
+                    <h6 style="overflow: visible; padding-left: 5px; font-weight: 600;">Choose Category *</h6>
+                    <select name="options" id="update-cat" class="name-input">
+                        <option value="none">None</option>
+                        <option value="Tablet">Tablet</option>
+                        <option value="Capsule">Capsule</option>
+                        <option value="Injection">Injection</option>
+                        <option value="Tube">Tube</option>
+                        <option value="Gel">Gel</option>
+                        <option value="Powder">Powder</option>
+                        <option value="Syrup">Syrup</option>
+                        <option value="Cream">Cream</option>
+                        <option value="Drops">Drops</option>
+                        <option value="Ointment">Ointment</option>
+                        <option value="Lotion">Lotion</option>
+                        <option value="Nano">Nano</option>
+                        <option value="Shot">Shot</option>
+                        <option value="Respules">Respules</option>
+                        <option value="Spray">Spray</option>
+                        <option value="Inhaler">Inhaler</option>
+                        <option value="Others">Others</option>
+                    </select>
+                </div>
+                <div class="name">
+                    <h6 style="overflow: visible; padding-left: 5px; font-weight: 600;">Enter Product Name *</h6>
+                    <input id="inp-8" class="name-input" type="text" placeholder="Enter here....">
+                </div>
+                <div class="name">
+                    <h6 style="overflow: visible; padding-left: 5px; font-weight: 600;">Enter Batch Number *</h6>
+                    <input id="inp-9" class="name-input" type="text" placeholder="Enter here....">
+                </div>
+                <div class="name">
+                    <h6 style="overflow: visible; padding-left: 5px; font-weight: 600;">Enter Quantity</h6>
+                    <input id="inp-10" class="name-input" type="text" placeholder="Enter here....">
+                </div>
+                <div class="name">
+                    <h6 style="overflow: visible; padding-left: 5px; font-weight: 600;">Enter Price</h6>
+                    <input id="inp-11" class="name-input" type="text" placeholder="Enter here....">
+                </div>
+                <div class="name">
+                    <h6 style="overflow: visible; padding-left: 5px; font-weight: 600;">Enter Manufacturer Name</h6>
+                    <input id="inp-12" class="name-input" type="text" placeholder="Enter here....">
+                </div>
+                <div class="name">
+                    <h6 style="overflow: visible; padding-left: 5px; font-weight: 600;">Enter Bill Number *</h6>
+                    <input id="inp-13" class="name-input" type="text" placeholder="Enter here....">
+                </div>
+                <div class="name">
+                    <h6 style="overflow: visible; padding-left: 5px; font-weight: 600;">Enter Expiry date *</h6>
+                    <input id="inp-14" class="name-input" type="text" placeholder="Enter in format DD/MM/YYYY">
+                </div>
+                <div style="display: flex;flex-direction: row; gap: 20px;">
+                    <button id="update-submit" class="submit" onclick="updateRow()">Update</button>
+                    <button id="update-submit" class="submit" onclick="removeUpdateTemplate()">Cancel</button>
+                </div>
             </div>
-            <div class="name">
-                <h6 style="padding-left: 5px; font-weight: 300;">Enter Batch Number</h6>
-                <input id="inp-7" class="name-input" type="text" placeholder="Enter here....">
-            </div>
-            <div class="name">
-                <h6 style="padding-left: 5px; font-weight: 300;">Enter Manufacturer Name</h6>
-                <input id="inp-8" class="name-input" type="text" placeholder="Enter here....">
-            </div>
-            <div class="name">
-                <h6 style="padding-left: 5px; font-weight: 300;">Enter Bill Number</h6>
-                <input id="inp-9" class="name-input" type="text" placeholder="Enter here....">
-            </div>
-            <div class="name">
-                <h6 style="padding-left: 5px; font-weight: 300;">Enter Expiry date</h6>
-                <input id="inp-10" class="name-input" type="text" placeholder="Enter in format DD/MM/YYYY">
-            </div>
-            <div style="display: flex; flex-direction: row; gap: 20px;">
-                <button id="update-submit" class="submit" onclick="updateRow()">Update</button>
-                <button id="update-submit" class="submit" onclick="removeUpdateTemplate()">Cancel</button>
-            </div>
-        </div>
     </div>
 </body>
 <script>
@@ -190,17 +297,17 @@
     }
 
     function showUpdateTemplate() {
-        let update = document.getElementById("-update-wrapper");
+        let update = document.getElementById("no-show");
         let main = document.getElementById("main-wrapper");
         main.classList.add("wrapper-blur");
-        update.classList.add("update-wrapper");
+        update.id = "show";
     }
 
     function removeUpdateTemplate() {
-        let update = document.getElementById("-update-wrapper");
+        let update = document.getElementById("show");
         let main = document.getElementById("main-wrapper");
         main.classList.remove("wrapper-blur");
-        update.classList.remove("update-wrapper");
+        update.id = "no-show";
     }
 </script>
 <script src="config.js"></script>
