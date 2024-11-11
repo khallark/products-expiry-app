@@ -40,6 +40,24 @@ let cat_map_str = {
     17: "Others"
 }
 
+// Function to fetch all products and return the JSON data
+async function __fetchAllProducts() {
+    try {
+        const response = await fetch('https://products-expiry-app-24bbeea498a1.herokuapp.com/allProds');
+        
+        if (!response.ok) {
+            throw new Error(`Failed to fetch all products: ${response.statusText}`);
+        }
+        
+        // Return the parsed JSON data
+        return await response.json();
+        
+    } catch (error) {
+        console.error('Error fetching all products:', error);
+        return null;  // Return null in case of error
+    }
+}
+
 // Function to fetch expiring products and return the JSON data
 async function __fetchExpiringProducts() {
     try {
@@ -234,6 +252,29 @@ async function addbts(cell) {
     cell.appendChild(del)
 }
 
+async function addAll() {
+    const products = await __fetchAllProducts();
+    const home_sec = document.getElementById('home-content-table');
+    deleteAllChildren(home_sec);
+    document.getElementById('home-num').textContent = `Items (${products.length})`;
+    for (let i = 0; i < products.length; i++) {
+        const productArray = Object.values(products[i]);
+        let newRow = home_sec.insertRow();
+        let cell = newRow.insertCell(0);
+        await addbts(cell)
+        for(let i = 1; i < 8; i++) {
+            let cell = newRow.insertCell(i);
+            if(i == 4 || i == 5 || i == 6) cell.innerHTML = `${productArray[i - 1] === "NULL" || productArray[i - 1] === 0 || productArray[i - 1] === "0.00" ? "----" : productArray[i - 1]}`;
+            else if(i == 1) cell.innerHTML = `${cat_map_str[productArray[i - 1]]}`;
+            else cell.innerHTML = `${productArray[i - 1]}`;
+        }
+        const date = new Date(productArray[7]);
+        const options = { day: 'numeric', month: 'long', year: 'numeric' };
+        productArray[7] = date.toLocaleDateString('en-US', options);
+        cell = newRow.insertCell(8);
+        cell.innerHTML = `${productArray[7]}`;
+    }
+}
 
 async function addExpiring() {
     const products = await __fetchExpiringProducts();
@@ -335,6 +376,7 @@ async function updateSearch() {
 async function delete_row(button) {
     const row = button.parentNode.children;
     await __deleteTuple(cat_map_num[row[1].textContent], row[2].textContent, row[3].textContent, row[4].textContent === "----" ? '0' : row[4].textContent, row[5].textContent === "----" ? '0.00' : row[5].textContent, row[6].textContent === "----" ? 'NULL' : row[6].textContent, row[7].textContent, convertDateFormat(row[8].textContent));
+    await addAll();
     await addExpired();
     await addExpiring();
     await updateSearch();
@@ -342,7 +384,8 @@ async function delete_row(button) {
 
 
 async function reset(string) {
-    if(string === 'expiring') await addExpiring();
+    if(string === 'all') await addAll();
+    else if(string === 'expiring') await addExpiring();
     else await addExpired();
 }
 
@@ -394,6 +437,7 @@ async function addRow() {
     document.getElementById('inp-5').value =
     document.getElementById('inp-6').value =
     document.getElementById('inp-7').value = '';
+    await addAll();
     await addExpired();
     await addExpiring();
     await updateSearch();
@@ -451,6 +495,7 @@ async function updateRow() {
     await __deleteTuple(cat_map_num[InitVals[0]], InitVals[1], InitVals[2], InitVals[3] === '----' ? '0' : InitVals[3],
     InitVals[4] === '----' ? '0.00' : InitVals[4], InitVals[5] === '----' ? 'NULL' : InitVals[5], InitVals[6], convertDateFormat(InitVals[7]));
     await __addTuple(vals);
+    await addAll();
     await addExpired();
     await addExpiring();
     await updateSearch();
@@ -470,6 +515,7 @@ async function updateRow() {
 
 document.getElementById('search-input').addEventListener('input', searchString)
 document.addEventListener('DOMContentLoaded', async () => {
+    await addAll();
     await addExpiring(); // Ensure this runs after the DOM is loaded
     await addExpired(); // Ensure this runs after the DOM is loaded
 });

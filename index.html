@@ -29,21 +29,38 @@
 
 
         <div class="tab-content home-ct" id="home-content">
-            <h1 style="
-                font-size: 6rem;
-                color: rgb(94, 94, 94);
-            "
-            >Welcome!</h1>
-            <h2 style="
-                font-size: 2rem;
-                font-weight: 200;
-                text-align: center;
-            ">Check for any updates regarding the expiry details.</h2>
-            <h2 style="
-                font-size: 2rem;
-                font-weight: 200;
-                text-align: center;
-            ">Hope you have a wonderful day!</h2>
+            <div class="home-slot" style="
+                height: 80px;
+                min-height: 80px;
+                justify-content: space-between;
+                align-items: center;
+                border: none;
+            ">
+                <h1 style="font-size: 3rem; font-weight: 200;" id="home-num">Items (0)</h1>
+                <button class="reset" onclick="reset('home')">
+                    <img id="reset-bttn" src="reset.png" alt="reset">
+                </button>
+            </div>
+            <div style="overflow-y: auto;border-top: 1px solid black; width: 95%; background-color: rgba(0, 0, 0, 0.089);">
+                <table>
+                    <thead>
+                        <tr">
+                            <th id="u-d">U/D</th>
+                            <th>Category</th>
+                            <th>Product Name</th>
+                            <th>Batch Number</th>
+                            <th>Quantity</th>
+                            <th>Price</th>
+                            <th>Manufacturer</th>
+                            <th>Bill Number</th>
+                            <th>Expiry Date</th>
+                        </tr>
+                    </thead>
+                    <tbody id="home-content-table">
+
+                    </tbody>
+                </table>
+            </div>
         </div>
 
 
@@ -152,7 +169,7 @@
                 align-items: center;
                 border: none;
             ">
-                <h1 style="font-size: 3rem; font-weight: 200;" id="expiring-num">Items(0)</h1>
+                <h1 style="font-size: 3rem; font-weight: 200;" id="expiring-num">Items (0)</h1>
                 <button class="reset" id="expiring-reset" onclick="reset('expiring')">
                     <img id="reset-bttn" src="reset.png" alt="reset">
                 </button>
@@ -190,7 +207,7 @@
                 align-items: center;
                 border: none;
             ">
-                <h1 style="font-size: 3rem; font-weight: 200;" id="expired-num">Items(0)</h1>
+                <h1 style="font-size: 3rem; font-weight: 200;" id="expired-num">Items (0)</h1>
                 <button class="reset" id="expired-reset" onclick="reset('expired')">
                     <img id="reset-bttn" src="reset.png" alt="reset">
                 </button>

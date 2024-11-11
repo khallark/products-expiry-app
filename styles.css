@@ -212,12 +212,13 @@ input[type="radio"] {
 
 .home-ct {
     display: flex;
-    position: relative;
-    height: 100%;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    /* background-color: aqua; */
+    position: relative;
+    overflow-y: auto;
+    padding-top: 40px;
+    max-height: 100vh;
+    row-gap: 20px;
 }
 .search-ct {
     display: flex;
@@ -263,7 +264,7 @@ input[type="radio"] {
     /* padding-top: 120px; */
 }
 .name {
-    margin: 1px;
+    /* margin: 0; */
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -330,6 +331,13 @@ input[type="radio"] {
     min-height: 100%;
     row-gap: 20px;
 }
+.home-slot {
+    display: flex;
+    position: relative;
+    height: fit-content;
+    min-height: 150px;
+    width: 90%;
+}
 .expire-slot {
     display: flex;
     position: relative;
@@ -368,17 +376,16 @@ input[type="radio"] {
     display: none;
 }
 .update-wrapper {
+    overflow-y:auto;
     display: flex;
     position: absolute;
     z-index: 1;
-    align-items: center;
     justify-content: center;
     height: 100vh;
     width: 100vw;
     background: none;
 }
 .update-card {
-    scale: 0.7;
     display: flex;
     flex-direction: column;
     align-items: center;
