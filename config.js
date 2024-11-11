@@ -238,6 +238,7 @@ async function addbts(cell) {
     let update = document.createElement("button");
     update.id = "u-d-button";
     update.innerText = "U";
+    update.style.backgroundColor = "Green";
     update.addEventListener("click", function() {
         showUpdateTemplate();
         fillGlobalArrayWithInitVals(cell)
@@ -245,6 +246,7 @@ async function addbts(cell) {
     let del = document.createElement("button");
     del.id = "u-d-button";
     del.innerText = "D";
+    del.style.backgroundColor = "rgb(209, 0, 0)";
     del.addEventListener("click", function() {
         delete_row(cell);
     })
