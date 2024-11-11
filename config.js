@@ -256,7 +256,7 @@ async function addAll() {
     const products = await __fetchAllProducts();
     const home_sec = document.getElementById('home-content-table');
     deleteAllChildren(home_sec);
-    document.getElementById('home-num').textContent = `Items (${products.length})`;
+    document.getElementById('home-num').textContent = `All Items (${products.length})`;
     for (let i = 0; i < products.length; i++) {
         const productArray = Object.values(products[i]);
         let newRow = home_sec.insertRow();
@@ -280,7 +280,7 @@ async function addExpiring() {
     const products = await __fetchExpiringProducts();
     const expiring_sec = document.getElementById('expiring-content-table');
     deleteAllChildren(expiring_sec);
-    document.getElementById('expiring-num').textContent = `Items (${products.length})`;
+    document.getElementById('expiring-num').textContent = `Expiring Items (${products.length})`;
     for (let i = 0; i < products.length; i++) {
         const productArray = Object.values(products[i]);
         let newRow = expiring_sec.insertRow();
@@ -305,7 +305,7 @@ async function addExpired() {
     const products = await __fetchExpiredProducts();
     const expired_sec = document.getElementById('expired-content-table');
     deleteAllChildren(expired_sec);
-    document.getElementById('expired-num').textContent = `Items (${products.length})`;
+    document.getElementById('expired-num').textContent = `Expired Items (${products.length})`;
     for (let i = 0; i < products.length; i++) {
         const productArray = Object.values(products[i]);
         let newRow = expired_sec.insertRow();
