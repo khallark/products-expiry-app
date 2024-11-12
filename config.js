@@ -43,7 +43,7 @@ let cat_map_str = {
 // Function to fetch all products and return the JSON data
 async function __fetchAllProducts() {
     try {
-        const response = await fetch('https://products-expiry-app-24bbeea498a1.herokuapp.com/allProds');
+        const response = await fetch('https://prods-exp-server.onrender.com/allProds');
         
         if (!response.ok) {
             throw new Error(`Failed to fetch all products: ${response.statusText}`);
@@ -61,7 +61,7 @@ async function __fetchAllProducts() {
 // Function to fetch expiring products and return the JSON data
 async function __fetchExpiringProducts() {
     try {
-        const response = await fetch('https://products-expiry-app-24bbeea498a1.herokuapp.com/expiring');
+        const response = await fetch('https://prods-exp-server.onrender.com/expiring');
         
         if (!response.ok) {
             throw new Error(`Failed to fetch expiring products: ${response.statusText}`);
@@ -79,7 +79,7 @@ async function __fetchExpiringProducts() {
 // Function to fetch expired products and return the JSON data
 async function __fetchExpiredProducts() {
     try {
-        const response = await fetch('https://products-expiry-app-24bbeea498a1.herokuapp.com/expired');
+        const response = await fetch('https://prods-exp-server.onrender.com/expired');
         
         if (!response.ok) {
             throw new Error(`Failed to fetch expired products: ${response.statusText}`);
@@ -95,7 +95,7 @@ async function __fetchExpiredProducts() {
 }
 
 async function __deleteTuple(category, product_n, batch_no, qty, price, manufacturer_n, bill_no, exp_date) {
-    const baseUrl = 'https://products-expiry-app-24bbeea498a1.herokuapp.com/delete';
+    const baseUrl = 'https://prods-exp-server.onrender.com/delete';
     const params = new URLSearchParams({
         category: category,
         product_name: product_n,
@@ -129,7 +129,7 @@ async function __addTuple(productDetails) {
     // Destructure the array into individual variables
     const [cat, product_n, batch_no, qty, price, manufacturer_n, bill_no, exp_date] = productDetails;
 
-    const baseUrl = 'https://products-expiry-app-24bbeea498a1.herokuapp.com/addproduct';
+    const baseUrl = 'https://prods-exp-server.onrender.com/addproduct';
     const bodyData = {
         category: cat,
         product_name: product_n,
@@ -168,7 +168,7 @@ function formattedSearch(str) {
 async function __fetch_searched_products(string) {
     try {
         string = formattedSearch(string)
-        const response = await fetch(`https://products-expiry-app-24bbeea498a1.herokuapp.com/searchStringPref/${encodeURIComponent(string)}`);
+        const response = await fetch(`https://prods-exp-server.onrender.com/searchStringPref/${encodeURIComponent(string)}`);
         
         if (!response.ok) {
             throw new Error(`Failed to fetch expiring products: ${response.statusText}`);
@@ -185,7 +185,7 @@ async function __fetch_searched_products(string) {
 async function __fetch_hard_searched_products(string) {
     try {
         string = formattedSearch(string)
-        const response = await fetch(`https://products-expiry-app-24bbeea498a1.herokuapp.com/searchStringHard/${encodeURIComponent(string)}`);
+        const response = await fetch(`https://prods-exp-server.onrender.com/searchStringHard/${encodeURIComponent(string)}`);
         
         if (!response.ok) {
             throw new Error(`Failed to fetch expiring products: ${response.statusText}`);
