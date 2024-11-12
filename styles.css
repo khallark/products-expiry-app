@@ -137,8 +137,8 @@ table {
     display: flex;
     flex-direction: column;
     height: 100%;
-    width: 310px;
-    min-width: 310px;
+    width: 220px;
+    min-width: 220px;
     border-top-right-radius: 15px;
     border-bottom-right-radius: 15px;
     box-shadow: 0 0 20px 5px rgb(107, 107, 107);
@@ -146,7 +146,7 @@ table {
 .ops-text {
     margin: 10px;
     margin-bottom: 45px;
-    font-size: 4rem;
+    font-size: 3rem;
     font-weight: 100;
 }
 input[type="radio"] {
@@ -185,7 +185,7 @@ input[type="radio"] {
     display: none;
     height: auto;
     max-height: 100%;
-    width: calc(100% - 310px);
+    width: calc(100% - 220px);
     min-width: 500px;
     animation: pop-up 0.4s ease-in 0s 1 normal;
     background: none;
