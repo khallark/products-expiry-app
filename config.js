@@ -266,7 +266,7 @@ async function addAll() {
         await addbts(cell)
         for(let i = 1; i < 8; i++) {
             let cell = newRow.insertCell(i);
-            if(i == 4 || i == 5 || i == 6) cell.innerHTML = `${productArray[i - 1] === "NULL" || productArray[i - 1] === 0 || productArray[i - 1] === "0.00" ? "----" : productArray[i - 1]}`;
+            if(i == 4 || i == 5 || i == 6) cell.innerHTML = `${productArray[i - 1] === "NULL" || productArray[i - 1] === "0" ? '----' : productArray[i - 1]}`;
             else if(i == 1) cell.innerHTML = `${cat_map_str[productArray[i - 1]]}`;
             else cell.innerHTML = `${productArray[i - 1]}`;
         }
@@ -290,7 +290,7 @@ async function addExpiring() {
         await addbts(cell)
         for(let i = 1; i < 8; i++) {
             let cell = newRow.insertCell(i);
-            if(i == 4 || i == 5 || i == 6) cell.innerHTML = `${productArray[i - 1] === "NULL" || productArray[i - 1] === 0 || productArray[i - 1] === "0.00" ? "----" : productArray[i - 1]}`;
+            if(i == 4 || i == 5 || i == 6) cell.innerHTML = `${productArray[i - 1] === "NULL" || productArray[i - 1] === "0" ? '----' : productArray[i - 1]}`;
             else if(i == 1) cell.innerHTML = `${cat_map_str[productArray[i - 1]]}`;
             else cell.innerHTML = `${productArray[i - 1]}`;
         }
@@ -315,7 +315,7 @@ async function addExpired() {
         await addbts(cell)
         for(let i = 1; i < 8; i++) {
             let cell = newRow.insertCell(i);
-            if(i == 4 || i == 5 || i == 6) cell.innerHTML = `${productArray[i - 1] === "NULL" || productArray[i - 1] === 0 || productArray[i - 1] === "0.00" ? "----" : productArray[i - 1]}`;
+            if(i == 4 || i == 5 || i == 6) cell.innerHTML = `${productArray[i - 1] === "NULL" || productArray[i - 1] === "0" ? '----' : productArray[i - 1]}`;
             else if(i == 1) cell.innerHTML = `${cat_map_str[productArray[i - 1]]}`;
             else cell.innerHTML = `${productArray[i - 1]}`;
         }
@@ -339,7 +339,7 @@ async function searchString(event) {
         await addbts(cell)
         for(let i = 1; i < 8; i++) {
             let cell = newRow.insertCell(i);
-            if(i == 4 || i == 5 || i == 6) cell.innerHTML = `${productArray[i - 1] === "NULL" || productArray[i - 1] === 0 || productArray[i - 1] === "0.00" ? "----" : productArray[i - 1]}`;
+            if(i == 4 || i == 5 || i == 6) cell.innerHTML = `${productArray[i - 1] === "NULL" || productArray[i - 1] === "0" ? '----' : productArray[i - 1]}`;
             else if(i == 1) cell.innerHTML = `${cat_map_str[productArray[i - 1]]}`;
             else cell.innerHTML = `${productArray[i - 1]}`;
         }
@@ -363,7 +363,7 @@ async function updateSearch() {
         await addbts(cell)
         for(let i = 1; i < 8; i++) {
             let cell = newRow.insertCell(i);
-            if(i == 4 || i == 5 || i == 6) cell.innerHTML = `${productArray[i - 1] === "NULL" || productArray[i - 1] === 0 || productArray[i - 1] === "0.00" ? "----" : productArray[i - 1]}`;
+            if(i == 4 || i == 5 || i == 6) cell.innerHTML = `${productArray[i - 1] === "NULL" || productArray[i - 1] === "0" ? '----' : productArray[i - 1]}`;
             else if(i == 1) cell.innerHTML = `${cat_map_str[productArray[i - 1]]}`;
             else cell.innerHTML = `${productArray[i - 1]}`;
         }
@@ -377,7 +377,7 @@ async function updateSearch() {
 
 async function delete_row(button) {
     const row = button.parentNode.children;
-    await __deleteTuple(cat_map_num[row[1].textContent], row[2].textContent, row[3].textContent, row[4].textContent === "----" ? '0' : row[4].textContent, row[5].textContent === "----" ? '0.00' : row[5].textContent, row[6].textContent === "----" ? 'NULL' : row[6].textContent, row[7].textContent, convertDateFormat(row[8].textContent));
+    await __deleteTuple(cat_map_num[row[1].textContent], row[2].textContent, row[3].textContent, row[4].textContent === '----' ? 'NULL' : row[4].textContent, row[5].textContent === '----' ? '0.00' : row[5].textContent, row[6].textContent === '----' ? 'NULL' : row[6].textContent, row[7].textContent, convertDateFormat(row[8].textContent));
     await addAll();
     await addExpired();
     await addExpiring();
@@ -454,9 +454,9 @@ async function fillGlobalArrayWithInitVals(button) {
     document.getElementById('update-cat').value = `${InitVals[0]}`;
     document.getElementById('inp-8').value = `${InitVals[1]}`;
     document.getElementById('inp-9').value = `${InitVals[2]}`;
-    document.getElementById('inp-10').value = `${InitVals[3] === "----" ? '' : InitVals[3]}`;
-    document.getElementById('inp-11').value = `${InitVals[4] === "----" ? '' : InitVals[4]}`;
-    document.getElementById('inp-12').value = `${InitVals[5] === "----" ? '' : InitVals[5]}`;
+    document.getElementById('inp-10').value = `${InitVals[3] === '----' ? '' : InitVals[3]}`;
+    document.getElementById('inp-11').value = `${InitVals[4] === '----' ? '' : InitVals[4]}`;
+    document.getElementById('inp-12').value = `${InitVals[5] === '----' ? '' : InitVals[5]}`;
     document.getElementById('inp-13').value = `${InitVals[6]}`;
     document.getElementById('inp-14').value = `${InitVals[7]}`;
 }
@@ -494,7 +494,7 @@ async function updateRow() {
     }
 
 
-    await __deleteTuple(cat_map_num[InitVals[0]], InitVals[1], InitVals[2], InitVals[3] === '----' ? '0' : InitVals[3],
+    await __deleteTuple(cat_map_num[InitVals[0]], InitVals[1], InitVals[2], InitVals[3] === '----' ? 'NULL' : InitVals[3],
     InitVals[4] === '----' ? '0.00' : InitVals[4], InitVals[5] === '----' ? 'NULL' : InitVals[5], InitVals[6], convertDateFormat(InitVals[7]));
     try {
         await __addTuple(vals);
