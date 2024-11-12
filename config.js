@@ -377,7 +377,7 @@ async function updateSearch() {
 
 async function delete_row(button) {
     const row = button.parentNode.children;
-    await __deleteTuple(cat_map_num[row[1].textContent], row[2].textContent, row[3].textContent, row[4].textContent === '----' ? 'null' : row[4].textContent, row[5].textContent === '----' ? '0' : row[5].textContent, row[6].textContent === '----' ? 'null' : row[6].textContent, row[7].textContent, convertDateFormat(row[8].textContent));
+    await __deleteTuple(cat_map_num[row[1].textContent], row[2].textContent, row[3].textContent, row[4].textContent === '----' ? null : row[4].textContent, row[5].textContent === '----' ? '0' : row[5].textContent, row[6].textContent === '----' ? null : row[6].textContent, row[7].textContent, convertDateFormat(row[8].textContent));
     await addAll();
     await addExpired();
     await addExpiring();
@@ -494,8 +494,8 @@ async function updateRow() {
     }
 
 
-    await __deleteTuple(cat_map_num[InitVals[0]], InitVals[1], InitVals[2], InitVals[3] === '----' ? 'null' : InitVals[3],
-    InitVals[4] === '----' ? '0' : InitVals[4], InitVals[5] === '----' ? 'null' : InitVals[5], InitVals[6], convertDateFormat(InitVals[7]));
+    await __deleteTuple(cat_map_num[InitVals[0]], InitVals[1], InitVals[2], InitVals[3] === '----' ? null : InitVals[3],
+    InitVals[4] === '----' ? '0' : InitVals[4], InitVals[5] === '----' ? null : InitVals[5], InitVals[6], convertDateFormat(InitVals[7]));
     try {
         await __addTuple(vals);
     } catch (error) {
