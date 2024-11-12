@@ -496,16 +496,22 @@ async function updateRow() {
 
     await __deleteTuple(cat_map_num[InitVals[0]], InitVals[1], InitVals[2], InitVals[3] === '----' ? '0' : InitVals[3],
     InitVals[4] === '----' ? '0.00' : InitVals[4], InitVals[5] === '----' ? 'NULL' : InitVals[5], InitVals[6], convertDateFormat(InitVals[7]));
-    await __addTuple(vals);
-    await addAll();
-    await addExpired();
-    await addExpiring();
-    await updateSearch();
+    try {
+        await __addTuple(vals);
+    } catch (error) {
+        console.error("Error in adding row:", error);
+        return;
+    }
     let update = document.getElementById("show");
     let main = document.getElementById("main-wrapper");
     main.classList.remove("wrapper-blur");
     update.id = "no-show";
     await emptyUpdateInputs();
+    await addAll();
+    await addExpired();
+    await addExpiring();
+    await updateSearch();
+    
 }
 
 
