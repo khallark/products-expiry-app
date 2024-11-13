@@ -263,6 +263,7 @@ async function addAll() {
     for (let i = 0; i < products.length; i++) {
         const productArray = Object.values(products[i]);
         let newRow = home_sec.insertRow();
+        console.log(productArray[8]);
         if(productArray[8] === true) newRow.style.backgroundColor = 'yellow';
         let cell = newRow.insertCell(0);
         await addbts(cell)
@@ -288,6 +289,7 @@ async function addExpiring() {
     for (let i = 0; i < products.length; i++) {
         const productArray = Object.values(products[i]);
         let newRow = expiring_sec.insertRow();
+        // console.log(productArray[8]);
         if(productArray[8] === true) newRow.style.backgroundColor = 'yellow';
         let cell = newRow.insertCell(0);
         await addbts(cell)
@@ -314,6 +316,7 @@ async function addExpired() {
     for (let i = 0; i < products.length; i++) {
         const productArray = Object.values(products[i]);
         let newRow = expired_sec.insertRow();
+        // console.log(productArray[8]);
         if(productArray[8] === true) newRow.style.backgroundColor = 'yellow';
         let cell = newRow.insertCell(0);
         await addbts(cell)
@@ -339,6 +342,7 @@ async function searchString(event) {
     for (let i = 0; i < products.length; i++) {
         const productArray = Object.values(products[i]);
         let newRow = search_sec.insertRow();
+        // console.log(productArray[8]);
         if(productArray[8] === true) newRow.style.backgroundColor = 'yellow';
         let cell = newRow.insertCell(0);
         await addbts(cell)
@@ -364,6 +368,7 @@ async function updateSearch() {
     for (let i = 0; i < products.length; i++) {
         const productArray = Object.values(products[i]);
         let newRow = search_sec.insertRow();
+        // console.log(productArray[8]);
         if(productArray[8] === true) newRow.style.backgroundColor = 'yellow';
         let cell = newRow.insertCell(0);
         await addbts(cell)
@@ -446,7 +451,7 @@ async function addRow() {
     document.getElementById('inp-5').value =
     document.getElementById('inp-6').value =
     document.getElementById('inp-7').value = '';
-    document.getElementById('create-sold').value = 'false';
+    document.getElementById('create-sold').value = 'FALSE';
     await addAll();
     await addExpired();
     await addExpiring();
@@ -457,7 +462,7 @@ async function addRow() {
 
 async function fillGlobalArrayWithInitVals(button) {
     const row = button.parentNode.children;
-    const sold_colour = (window.getComputedStyle(button.parentNode).backgroundColor === 'yellow') ? 'true' : 'false';
+    const sold_colour = (window.getComputedStyle(button.parentNode).backgroundColor === 'rgb(255, 255, 0)') ? 'TRUE' : 'FALSE';
     InitVals = [row[1].textContent, row[2].textContent, row[3].textContent, row[4].textContent, row[5].textContent,
     row[6].textContent, row[7].textContent, convertDateFormat(row[8].textContent), sold_colour];
     document.getElementById('update-cat').value = `${InitVals[0]}`;
@@ -481,7 +486,7 @@ async function emptyUpdateInputs() {
     document.getElementById('inp-12').value =
     document.getElementById('inp-13').value =
     document.getElementById('inp-14').value = '';
-    document.getElementById('update-sold').value = 'false';
+    document.getElementById('update-sold').value = 'FALSE';
 }
 
 
