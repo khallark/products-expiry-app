@@ -69,6 +69,14 @@ table {
     background-color: rgba(255, 255, 255, 0.384);
 }
 
+.form-style {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    overflow-y: auto;
+}
+
 .bin {
     position: relative;
     outline: none;
@@ -240,12 +248,12 @@ input[type="radio"] {
 
 .create-ct {
     position: relative;
+    overflow-y: auto;
     display: flex;
     flex-direction: column;
     gap: 5px;
     height: 100vh;
     max-height: 100vh;
-    overflow: auto;
     align-items: center;
 }
 .name {
@@ -374,7 +382,7 @@ input[type="radio"] {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 900px;
+    height: 1030px;
     width: 550px;
     min-width: 550px;
     border-radius: 20px;

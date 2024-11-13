@@ -104,8 +104,8 @@
 
 
         <div class="tab-content" id="create-content">
-            <div class="name" style="margin-top: 20px;">
-                <form autocomplete="on" onsubmit="preventRefresh(event)">
+            <form class="form-style" autocomplete="on" onsubmit="preventRefresh(event)">
+                <div class="name" style="margin-top: 20px;">
                     <h6 style="overflow: visible; padding-left: 5px; font-weight: 600;">Choose Category *</h6>
                     <select name="options" id="create-cat" class="name-input">
                         <option value="none">None</option>
@@ -155,6 +155,13 @@
                 <div class="name">
                     <h6 style="overflow: visible; padding-left: 5px; font-weight: 600; margin-top: 10px">Enter Expiry date *</h6>
                     <input id="inp-7" class="name-input" type="date">
+                </div>
+                <div class="name">
+                    <h6 style="overflow: visible; padding-left: 5px; font-weight: 600; margin-top: 10px;">Sold or not *</h6>
+                    <select name="options" id="create-sold" class="name-input">
+                        <option value="false">No</option>
+                        <option value="true">Yes</option>
+                    </select>
                 </div>
                 <button id="create-submit" class="submit" style="margin-bottom: 20px;" onclick="addRow()">Submit</button>
             </form>
@@ -237,65 +244,72 @@
         </div>
     </div>
     <div id="no-show" class="update-wrapper">
-            <div class="update-card">
-                <form autocomplete="on" onsubmit="preventRefresh(event)">
-                    <div class="name">
-                        <h6 style="overflow: visible; padding-left: 5px; font-weight: 600;">Choose Category *</h6>
-                        <select name="options" id="update-cat" class="name-input">
-                            <option value="none">None</option>
-                            <option value="Tablet">Tablet</option>
-                            <option value="Capsule">Capsule</option>
-                            <option value="Injection">Injection</option>
-                            <option value="Tube">Tube</option>
-                            <option value="Gel">Gel</option>
-                            <option value="Powder">Powder</option>
-                            <option value="Syrup">Syrup</option>
-                            <option value="Cream">Cream</option>
-                            <option value="Drops">Drops</option>
-                            <option value="Ointment">Ointment</option>
-                            <option value="Lotion">Lotion</option>
-                            <option value="Nano">Nano</option>
-                            <option value="Shot">Shot</option>
-                            <option value="Respules">Respules</option>
-                            <option value="Spray">Spray</option>
-                            <option value="Inhaler">Inhaler</option>
-                            <option value="Others">Others</option>
-                        </select>
-                    </div>
-                    <div class="name">
-                        <h6 style="overflow: visible; padding-left: 5px; font-weight: 600;">Enter Product Name *</h6>
-                        <input id="inp-8" class="name-input" type="text" placeholder="Enter here....">
-                    </div>
-                    <div class="name">
-                        <h6 style="overflow: visible; padding-left: 5px; font-weight: 600;">Enter Batch Number *</h6>
-                        <input id="inp-9" class="name-input" type="text" placeholder="Enter here....">
-                    </div>
-                    <div class="name">
-                        <h6 style="overflow: visible; padding-left: 5px; font-weight: 600;">Enter Quantity</h6>
-                        <input id="inp-10" class="name-input" type="text" placeholder="Enter here....">
-                    </div>
-                    <div class="name">
-                        <h6 style="overflow: visible; padding-left: 5px; font-weight: 600;">Enter Price</h6>
-                        <input id="inp-11" class="name-input" type="text" placeholder="Enter here....">
-                    </div>
-                    <div class="name">
-                        <h6 style="overflow: visible; padding-left: 5px; font-weight: 600;">Enter Party Name</h6>
-                        <input id="inp-12" class="name-input" type="text" placeholder="Enter here....">
-                    </div>
-                    <div class="name">
-                        <h6 style="overflow: visible; padding-left: 5px; font-weight: 600;">Enter Bill Number *</h6>
-                        <input id="inp-13" class="name-input" type="text" placeholder="Enter here....">
-                    </div>
-                    <div class="name">
-                        <h6 style="overflow: visible; padding-left: 5px; font-weight: 600;">Enter Expiry date *</h6>
-                        <input id="inp-14" class="name-input" type="text" placeholder="Enter in format DD/MM/YYYY">
-                    </div>
-                    <div style="display: flex; flex-direction: row; gap: 20px; width: 450px; justify-content: center;">
-                        <button id="update-submit" class="submit" onclick="updateRow()">Update</button>
-                        <button id="update-submit" class="submit" onclick="removeUpdateTemplate()">Cancel</button>
-                    </div>
-                </form>
-            </div>
+        <div class="update-card">
+            <form autocomplete="on" onsubmit="preventRefresh(event)">
+                <div class="name">
+                    <h6 style="overflow: visible; padding-left: 5px; font-weight: 600;">Choose Category *</h6>
+                    <select name="options" id="update-cat" class="name-input">
+                        <option value="none">None</option>
+                        <option value="Tablet">Tablet</option>
+                        <option value="Capsule">Capsule</option>
+                        <option value="Injection">Injection</option>
+                        <option value="Tube">Tube</option>
+                        <option value="Gel">Gel</option>
+                        <option value="Powder">Powder</option>
+                        <option value="Syrup">Syrup</option>
+                        <option value="Cream">Cream</option>
+                        <option value="Drops">Drops</option>
+                        <option value="Ointment">Ointment</option>
+                        <option value="Lotion">Lotion</option>
+                        <option value="Nano">Nano</option>
+                        <option value="Shot">Shot</option>
+                        <option value="Respules">Respules</option>
+                        <option value="Spray">Spray</option>
+                        <option value="Inhaler">Inhaler</option>
+                        <option value="Others">Others</option>
+                    </select>
+                </div>
+                <div class="name">
+                    <h6 style="overflow: visible; padding-left: 5px; font-weight: 600;">Enter Product Name *</h6>
+                    <input id="inp-8" class="name-input" type="text" placeholder="Enter here....">
+                </div>
+                <div class="name">
+                    <h6 style="overflow: visible; padding-left: 5px; font-weight: 600;">Enter Batch Number *</h6>
+                    <input id="inp-9" class="name-input" type="text" placeholder="Enter here....">
+                </div>
+                <div class="name">
+                    <h6 style="overflow: visible; padding-left: 5px; font-weight: 600;">Enter Quantity</h6>
+                    <input id="inp-10" class="name-input" type="text" placeholder="Enter here....">
+                </div>
+                <div class="name">
+                    <h6 style="overflow: visible; padding-left: 5px; font-weight: 600;">Enter Price</h6>
+                    <input id="inp-11" class="name-input" type="text" placeholder="Enter here....">
+                </div>
+                <div class="name">
+                    <h6 style="overflow: visible; padding-left: 5px; font-weight: 600;">Enter Party Name</h6>
+                    <input id="inp-12" class="name-input" type="text" placeholder="Enter here....">
+                </div>
+                <div class="name">
+                    <h6 style="overflow: visible; padding-left: 5px; font-weight: 600;">Enter Bill Number *</h6>
+                    <input id="inp-13" class="name-input" type="text" placeholder="Enter here....">
+                </div>
+                <div class="name">
+                    <h6 style="overflow: visible; padding-left: 5px; font-weight: 600;">Enter Expiry date *</h6>
+                    <input id="inp-14" class="name-input" type="text" placeholder="Enter in format DD/MM/YYYY">
+                </div>
+                <div class="name">
+                    <h6 style="overflow: visible; padding-left: 5px; font-weight: 600;">Choose Category *</h6>
+                    <select name="options" id="update-sold" class="name-input">
+                        <option value="false">No</option>
+                        <option value="true">Yes</option>
+                    </select>
+                </div>
+                <div style="display: flex; flex-direction: row; gap: 20px; width: 450px; justify-content: center;">
+                    <button id="update-submit" class="submit" onclick="updateRow()">Update</button>
+                    <button id="update-submit" class="submit" onclick="removeUpdateTemplate()">Cancel</button>
+                </div>
+            </form>
+        </div>
     </div>
 </body>
 <script>
