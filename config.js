@@ -263,7 +263,6 @@ async function addAll() {
     for (let i = 0; i < products.length; i++) {
         const productArray = Object.values(products[i]);
         let newRow = home_sec.insertRow();
-        console.log(productArray[8]);
         if(productArray[8] === true) newRow.style.backgroundColor = 'yellow';
         let cell = newRow.insertCell(0);
         await addbts(cell)
@@ -289,7 +288,6 @@ async function addExpiring() {
     for (let i = 0; i < products.length; i++) {
         const productArray = Object.values(products[i]);
         let newRow = expiring_sec.insertRow();
-        // console.log(productArray[8]);
         if(productArray[8] === true) newRow.style.backgroundColor = 'yellow';
         let cell = newRow.insertCell(0);
         await addbts(cell)
@@ -316,7 +314,6 @@ async function addExpired() {
     for (let i = 0; i < products.length; i++) {
         const productArray = Object.values(products[i]);
         let newRow = expired_sec.insertRow();
-        // console.log(productArray[8]);
         if(productArray[8] === true) newRow.style.backgroundColor = 'yellow';
         let cell = newRow.insertCell(0);
         await addbts(cell)
@@ -342,7 +339,6 @@ async function searchString(event) {
     for (let i = 0; i < products.length; i++) {
         const productArray = Object.values(products[i]);
         let newRow = search_sec.insertRow();
-        // console.log(productArray[8]);
         if(productArray[8] === true) newRow.style.backgroundColor = 'yellow';
         let cell = newRow.insertCell(0);
         await addbts(cell)
@@ -368,7 +364,6 @@ async function updateSearch() {
     for (let i = 0; i < products.length; i++) {
         const productArray = Object.values(products[i]);
         let newRow = search_sec.insertRow();
-        // console.log(productArray[8]);
         if(productArray[8] === true) newRow.style.backgroundColor = 'yellow';
         let cell = newRow.insertCell(0);
         await addbts(cell)
