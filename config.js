@@ -166,21 +166,44 @@ function formattedSearch(str) {
     if(!str) return 'whderjn';
     return str;
 }
+let searchTimeout;
+let currentController;  // Store the AbortController for canceling previous requests
+
+function debounceSearch(callback, delay = 300) {
+    return (...args) => {
+        if (searchTimeout) clearTimeout(searchTimeout);
+        searchTimeout = setTimeout(() => callback(...args), delay);
+    };
+}
+
 async function __fetch_searched_products(string) {
+    if (currentController) {
+        // Cancel the previous request
+        currentController.abort();
+    }
+    currentController = new AbortController(); // Create a new controller for the new request
+
     try {
-        string = formattedSearch(string)
-        const response = await fetch(`https://prods-exp-server.onrender.com/searchStringPref/${encodeURIComponent(string)}`);
-        
+        string = formattedSearch(string);
+        const response = await fetch(
+            `https://prods-exp-server.onrender.com/searchStringPref/${encodeURIComponent(string)}`,
+            { signal: currentController.signal }
+        );
+
         if (!response.ok) {
             throw new Error(`Failed to fetch expiring products: ${response.statusText}`);
         }
-        
+
         // Return the parsed JSON data
         return await response.json();
-        
+
     } catch (error) {
-        console.error('Error fetching products:', error);
-        return null;  // Return null in case of error
+        if (error.name === 'AbortError') {
+            console.log('Request was aborted');
+        } else {
+            console.error('Error fetching products:', error);
+        }
+        return new Array(); // Return null in case of error
     }
 }
 async function __fetch_hard_searched_products(string) {
