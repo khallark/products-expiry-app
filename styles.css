@@ -145,8 +145,8 @@ table {
     display: flex;
     flex-direction: column;
     height: 100%;
-    width: 220px;
-    min-width: 220px;
+    width: 170px;
+    min-width: 170px;
     border-top-right-radius: 15px;
     border-bottom-right-radius: 15px;
     box-shadow: 0 0 20px 5px rgb(107, 107, 107);
@@ -193,7 +193,7 @@ input[type="radio"] {
     display: none;
     height: auto;
     max-height: 100%;
-    width: calc(100% - 220px);
+    width: calc(100% - 170px);
     min-width: 500px;
     animation: pop-up 0.4s ease-in 0s 1 normal;
     background: none;
