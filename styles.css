@@ -16,19 +16,34 @@ body {
     background: linear-gradient(90deg, grey 20%, lightgrey 100%, white 30%);
 }
 
+
+.table-div {
+    overflow-y: auto;
+    width: 95%;
+    background-color: #dadada;
+}
+table {
+    width: 100%;
+    flex-grow: 1;
+    position: relative;
+    overflow-y: auto;
+    table-layout: fixed;
+}
 table, th, td {
-    border: 1px solid rgb(0, 0, 0);
+    border: 1px solid #6d6d6d;
     border-collapse: collapse;
     word-break: break-all;
 }
-thead, th {
-    position: static;
-    top: 0;
-    z-index: 1;
+th {
     font-size: 1.1rem;
     padding: 10px;
-    border: 2px solid black;
-    border-bottom: 3px solid black;
+    border: 1px solid #6d6d6d;
+}
+.tr {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background-color: #afafaf;
 }
 td {
     padding: 5px;
@@ -37,11 +52,8 @@ td {
     vertical-align: top;
     text-align: left;
 }
-table {
-    width: 100%;
-    flex-grow: 1;
-    table-layout: fixed;
-}
+
+
 
 #u-d {
     width: 45px;
@@ -52,23 +64,20 @@ table {
 .u-d-button {
     position: relative;
     height: fit-content;
-    width: 100%;
+    width: 101%;
     height: 40px;
     font-size: 1.5rem;
     font-weight: 900;
     color: white;
-    border: 1px solid black;
+    border: none;
 }
 .u-d-button:hover{
     filter: brightness(0.85);
 }
-
-.table-div {
-    overflow-y: auto;
-    border-top: 1px solid black;
-    width: 95%;
-    background-color: rgba(255, 255, 255, 0.384);
+.u-d-button:active {
+    filter: brightness(0.7);
 }
+
 
 .form-style {
     display: flex;
@@ -195,8 +204,8 @@ input[type="radio"] {
 }
 .tab-content {
     display: none;
-    height: auto;
-    max-height: 100%;
+    /* height: auto; */
+    height: 100vh;
     width: calc(100% - 170px);
     min-width: 500px;
     animation: pop-up 0.4s ease-in 0s 1 normal;
@@ -216,11 +225,11 @@ input[type="radio"] {
     display: flex;
     flex-direction: column;
     align-items: center;
-    position: relative;
-    overflow-y: auto;
+    position: relative; 
     padding-top: 40px;
-    max-height: 100vh;
+    height: 100vh;
     row-gap: 20px;
+    overflow: hidden;
 }
 .search-ct {
     display: flex;
@@ -252,12 +261,10 @@ input[type="radio"] {
 
 .create-ct {
     position: relative;
-    overflow-y: auto;
     display: flex;
     flex-direction: column;
     gap: 5px;
     height: 100vh;
-    max-height: 100vh;
     align-items: center;
 }
 .name {
@@ -311,9 +318,8 @@ input[type="radio"] {
     flex-direction: column;
     align-items: center;
     position: relative;
-    overflow-y: auto;
     padding-top: 40px;
-    max-height: 100vh;
+    height: 100vh;
     row-gap: 20px;
 }
 .expired-ct {
@@ -321,10 +327,9 @@ input[type="radio"] {
     flex-direction: column;
     align-items: center;
     position: relative;
-    overflow-y: auto;
     padding-top: 40px;
     height: fit-content;
-    min-height: 100%;
+    height: 100vh;
     row-gap: 20px;
 }
 .home-slot {

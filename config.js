@@ -262,7 +262,7 @@ async function addbts(cell) {
     let update = document.createElement("button");
     update.classList.add("u-d-button");
     update.innerText = "U";
-    update.style.backgroundColor = "Green";
+    update.style.backgroundColor = "rgba(0, 128, 0, 0.575)";
     update.addEventListener("click", function() {
         showUpdateTemplate();
         fillGlobalArrayWithInitVals(cell)
@@ -270,7 +270,7 @@ async function addbts(cell) {
     let del = document.createElement("button");
     del.classList.add("u-d-button");
     del.innerText = "D";
-    del.style.backgroundColor = "rgb(209, 0, 0)";
+    del.style.backgroundColor = "rgba(255, 0, 0, 0.616)";
     del.addEventListener("click", function() {
         delete_row(cell);
     })
@@ -286,7 +286,7 @@ async function addAll() {
     for (let i = 0; i < products.length; i++) {
         const productArray = Object.values(products[i]);
         let newRow = home_sec.insertRow();
-        if(productArray[8] === true) newRow.style.backgroundColor = 'yellow';
+        if(productArray[8] === true) newRow.style.backgroundColor = 'white';
         let cell = newRow.insertCell(0);
         await addbts(cell)
         for(let i = 1; i < 8; i++) {
@@ -311,7 +311,7 @@ async function addExpiring() {
     for (let i = 0; i < products.length; i++) {
         const productArray = Object.values(products[i]);
         let newRow = expiring_sec.insertRow();
-        if(productArray[8] === true) newRow.style.backgroundColor = 'yellow';
+        if(productArray[8] === true) newRow.style.backgroundColor = 'white';
         let cell = newRow.insertCell(0);
         await addbts(cell)
         for(let i = 1; i < 8; i++) {
@@ -337,7 +337,7 @@ async function addExpired() {
     for (let i = 0; i < products.length; i++) {
         const productArray = Object.values(products[i]);
         let newRow = expired_sec.insertRow();
-        if(productArray[8] === true) newRow.style.backgroundColor = 'yellow';
+        if(productArray[8] === true) newRow.style.backgroundColor = 'white';
         let cell = newRow.insertCell(0);
         await addbts(cell)
         for(let i = 1; i < 8; i++) {
@@ -362,7 +362,7 @@ async function searchString(event) {
     for (let i = 0; i < products.length; i++) {
         const productArray = Object.values(products[i]);
         let newRow = search_sec.insertRow();
-        if(productArray[8] === true) newRow.style.backgroundColor = 'yellow';
+        if(productArray[8] === true) newRow.style.backgroundColor = 'white';
         let cell = newRow.insertCell(0);
         await addbts(cell)
         for(let i = 1; i < 8; i++) {
@@ -387,7 +387,7 @@ async function updateSearch() {
     for (let i = 0; i < products.length; i++) {
         const productArray = Object.values(products[i]);
         let newRow = search_sec.insertRow();
-        if(productArray[8] === true) newRow.style.backgroundColor = 'yellow';
+        if(productArray[8] === true) newRow.style.backgroundColor = 'white';
         let cell = newRow.insertCell(0);
         await addbts(cell)
         for(let i = 1; i < 8; i++) {
@@ -480,7 +480,7 @@ async function addRow() {
 
 async function fillGlobalArrayWithInitVals(button) {
     const row = button.parentNode.children;
-    const sold_colour = (window.getComputedStyle(button.parentNode).backgroundColor === 'rgb(255, 255, 0)') ? 'TRUE' : 'FALSE';
+    const sold_colour = (window.getComputedStyle(button.parentNode).backgroundColor === 'rgb(255, 255, 255)') ? 'TRUE' : 'FALSE';
     InitVals = [row[1].textContent, row[2].textContent, row[3].textContent, row[4].textContent, row[5].textContent,
     row[6].textContent, row[7].textContent, convertDateFormat(row[8].textContent), sold_colour];
     document.getElementById('update-cat').value = `${InitVals[0]}`;
