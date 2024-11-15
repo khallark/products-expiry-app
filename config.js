@@ -441,6 +441,11 @@ async function addRow() {
     ];
     
     if(vals[0] == 0) {
+        console.log('None is not a valid category.');
+        return;
+    }
+    if(vals[1] === '') {
+        console.log('Product name cannot be empty.')
         return;
     }
     if(!isValidDateFormat(vals[7])) {
@@ -521,6 +526,11 @@ async function updateRow() {
         document.getElementById('update-sold').value
     ];
     if(vals[0] == 0) {
+        console.log('None is not a valid category.');
+        return;
+    }
+    if(vals[1] === '') {
+        console.log('Product name cannot be empty.')
         return;
     }
     if(!isValidDateFormat(vals[7])) {
