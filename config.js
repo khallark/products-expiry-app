@@ -17,7 +17,9 @@ let cat_map_num = {
     "Respules": 14,
     "Spray": 15,
     "Inhaler": 16,
-    "Others": 17
+    "Others": 17,
+    "Gargle": 18,
+    "Gum Paint": 19
 }
 let cat_map_str = {
     0: "none",
@@ -37,7 +39,9 @@ let cat_map_str = {
     14: "Respules",
     15: "Spray",
     16: "Inhaler",
-    17: "Others"
+    17: "Others",
+    18: "Gargle",
+    19: "Gum Paint",
 }
 
 // Function to fetch all products and return the JSON data
