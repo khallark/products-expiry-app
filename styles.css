@@ -82,6 +82,7 @@ td {
 .form-style {
     display: flex;
     flex-direction: column;
+    row-gap: 12px;
     align-items: center;
     width: 100%;
     overflow-y: auto;
